@@ -1,52 +1,74 @@
 import os
 
 listaAlunos = []
+while True: 
+    print(f'''Opções:
+        1. Cadatrar alunos e notas
+        2. Boletins
+        3. Filtro de Boletim por aluno
+        4. Alunos com maior Média Final
+        5. Aluno com menor Média Final
+        6. Pencentual de alunos com Média Final maior que 5.0
+        ''')
+    opcaoSelecionada = input(f'--> ')
 
-qtdCadastro = int(input(f'Dígite a quantidade de alunos que deseja cadastrar: '))
+    if opcaoSelecionada == '1':
 
-contadorCadastro = 0
+        qtdCadastro = int(input(f'Dígite a quantidade de alunos que deseja cadastrar: '))
 
-while contadorCadastro < qtdCadastro:
+        contadorCadastro = 0
 
-    listaAluno = []
-    listaNotaPratica = []
-    listaNotaTeorica = []
-    listaMediaPraticaTeorica = []
+        while contadorCadastro < qtdCadastro:
 
-    nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
+            listaAluno = []
+            listaNotaPratica = []
+            listaNotaTeorica = []
+            listaMediaPraticaTeorica = []
 
-    print('Dígite a nota da:')
-    notaTeorica1 = float(input(f'prímeira prova teórica: '))
-    notaTeorica2 = float(input(f'segunda prova teórica: '))
-    notaPratica1 = float(input(f'primeiro projeto prático: '))
-    notaPratica2 = float(input(f'segundo projeto prático: '))
-    os.system('cls')
+            nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
 
-    mediaTeorica = (0.4 * notaTeorica1) + (0.6 * notaTeorica2)
-    mediaPratica = (notaPratica1 + notaPratica2) / 2
+            print('Dígite a nota da:')
+            notaTeorica1 = float(input(f'prímeira prova teórica: '))
+            notaTeorica2 = float(input(f'segunda prova teórica: '))
+            notaPratica1 = float(input(f'primeiro projeto prático: '))
+            notaPratica2 = float(input(f'segundo projeto prático: '))
+            os.system('cls')
 
-    if mediaTeorica and mediaPratica > 5:
-        mediaFinal = (0.3 * mediaPratica) + (0.7 * mediaTeorica)
-    else:
-        if mediaTeorica < mediaPratica:
-            mediaFinal = mediaTeorica
-        else:
-            mediaFinal = mediaPratica
+            mediaTeorica = (0.4 * notaTeorica1) + (0.6 * notaTeorica2)
+            mediaPratica = (notaPratica1 + notaPratica2) / 2
 
-    listaNotaTeorica.append(f'Notas das provas teóricas: ')
-    listaNotaTeorica.append(notaTeorica1)
-    listaNotaTeorica.append(notaTeorica2)
-    listaNotaPratica.append(f'Notas das provas práticas: ')
-    listaNotaPratica.append(notaPratica1)
-    listaNotaPratica.append(notaPratica2)
-    listaMediaPraticaTeorica.append(f'Média prática: {mediaPratica}' )
-    listaMediaPraticaTeorica.append(f'Média teórica: {mediaTeorica}')
-    listaAluno.append(nomeAluno)
-    listaAluno.append(listaNotaTeorica)
-    listaAluno.append(listaNotaPratica)
-    listaAluno.append(listaMediaPraticaTeorica)
-    listaAluno.append(f'Média final: {mediaFinal}')
-    listaAlunos.append(listaAluno)
-    contadorCadastro += 1
+            if mediaTeorica and mediaPratica > 5:
+                mediaFinal = (0.3 * mediaPratica) + (0.7 * mediaTeorica)
+            else:
+                if mediaTeorica < mediaPratica:
+                    mediaFinal = mediaTeorica
+                else:
+                    mediaFinal = mediaPratica
 
-print(listaAlunos)
+            listaNotaTeorica.append(f'Notas das provas teóricas: ')
+            listaNotaTeorica.append(notaTeorica1)
+            listaNotaTeorica.append(notaTeorica2)
+            listaNotaPratica.append(f'Notas das provas práticas: ')
+            listaNotaPratica.append(notaPratica1)
+            listaNotaPratica.append(notaPratica2)
+            listaMediaPraticaTeorica.append(f'Média prática: {mediaPratica}' )
+            listaMediaPraticaTeorica.append(f'Média teórica: {mediaTeorica}')
+            listaAluno.append(nomeAluno)
+            listaAluno.append(listaNotaTeorica)
+            listaAluno.append(listaNotaPratica)
+            listaAluno.append(listaMediaPraticaTeorica)
+            listaAluno.append(f'Média final: {mediaFinal}')
+            listaAlunos.append(listaAluno)
+            contadorCadastro += 1
+
+    if opcaoSelecionada == '2':
+        print(f'Gerando Boletins..')
+
+        for i in listaAlunos:
+            for k in i:
+                for j in k:
+                    print(f'{j}', end='')
+            print('\n')
+
+    input('Tecle enter para voltar!')
+           
