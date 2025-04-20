@@ -1,4 +1,5 @@
 import os
+import time
 
 listaAlunos = []
 while True: 
@@ -27,7 +28,7 @@ while True:
 
             nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
 
-            print('Dígite a nota da:')
+            print('Notas:')
             notaTeorica1 = float(input(f'prímeira prova teórica: '))
             notaTeorica2 = float(input(f'segunda prova teórica: '))
             notaPratica1 = float(input(f'primeiro projeto prático: '))
@@ -45,30 +46,30 @@ while True:
                 else:
                     mediaFinal = mediaPratica
 
-            listaNotaTeorica.append(f'Notas das provas teóricas: ')
-            listaNotaTeorica.append(notaTeorica1)
-            listaNotaTeorica.append(notaTeorica2)
-            listaNotaPratica.append(f'Notas das provas práticas: ')
-            listaNotaPratica.append(notaPratica1)
-            listaNotaPratica.append(notaPratica2)
-            listaMediaPraticaTeorica.append(f'Média prática: {mediaPratica}' )
-            listaMediaPraticaTeorica.append(f'Média teórica: {mediaTeorica}')
-            listaAluno.append(nomeAluno)
+            listaNotaTeorica.append(f'|  Notas das provas teóricas: ')
+            listaNotaTeorica.append(f'T1: {notaTeorica1}  ')
+            listaNotaTeorica.append(f'T2: {notaTeorica2}  |  \n')
+            listaNotaPratica.append(f'|  Notas das provas práticas: ')
+            listaNotaPratica.append(f'P1: {notaPratica1}  ')
+            listaNotaPratica.append(f'P2: {notaPratica2}  |  \n')
+            listaMediaPraticaTeorica.append(f'|  Média prática: {mediaPratica  }  |  \n')
+            listaMediaPraticaTeorica.append(f'|  Média teórica: {mediaTeorica  }  |  \n')
+            listaAluno.append(f'|  Nome: {nomeAluno}  |\n')
             listaAluno.append(listaNotaTeorica)
             listaAluno.append(listaNotaPratica)
             listaAluno.append(listaMediaPraticaTeorica)
-            listaAluno.append(f'Média final: {mediaFinal}')
+            listaAluno.append(f'|  Média final: {mediaFinal}  |  ')
             listaAlunos.append(listaAluno)
             contadorCadastro += 1
 
     if opcaoSelecionada == '2':
+        os.system('cls')
         print(f'Gerando Boletins..')
 
         for i in listaAlunos:
             for k in i:
                 for j in k:
-                    print(f'{j}', end='')
-            print('\n')
-
+                        print(f'{j}', end='')
+    print(f'\n')
     input('Tecle enter para voltar!')
            
