@@ -72,9 +72,10 @@ while True:
                         
                     else:
                         verificador = True
+                        nomeAluno = nomeAluno.title()
                         break
-
-            print('Notas:')
+            os.system('cls')
+            print('Preencha os campos abaixo com as notas!')
 
             notaTeorica1 = (input(f'prímeira prova teórica: '))
 
@@ -138,7 +139,7 @@ while True:
             listaNotaPratica.append(f'P2: {notaPratica2}  |  \n')
             listaMediaPraticaTeorica.append(f'|  Média prática: {mediaPratica  }  |  \n')
             listaMediaPraticaTeorica.append(f'|  Média teórica: {mediaTeorica  }  |  \n')
-            listaAluno.append(f'|  Nome: {nomeAluno.title}  |\n')
+            listaAluno.append(f'|  Nome: {nomeAluno}  |\n')
             listaAluno.append(listaNotaTeorica)
             listaAluno.append(listaNotaPratica)
             listaAluno.append(listaMediaPraticaTeorica)
@@ -154,7 +155,7 @@ while True:
             os.system('cls')
         else:
             os.system('cls')
-            print(f'Gerando Boletins..\n')
+            print(f'\nGerando Boletins..\n')
 
             for i in listaAlunos:
                 for k in i:
@@ -167,6 +168,7 @@ while True:
     if opcaoSelecionada == '3':
         os.system('cls')
         pesquisaAluno = input(f'Dígite o nome do aluno: ')
+        pesquisaAluno = pesquisaAluno.title()
         print(f'Gerando Boletins por aluno..\n\n')
         contAlunoNaoEncontrado = 0
         for i in listaAlunos:
