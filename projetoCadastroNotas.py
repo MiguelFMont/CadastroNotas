@@ -1,5 +1,4 @@
 import os
-import time
 
 listaAlunos = []
 while True: 
@@ -14,6 +13,7 @@ while True:
     opcaoSelecionada = input(f'--> ')
 
     if opcaoSelecionada == '1':
+        os.system('cls')
 
         qtdCadastro = int(input(f'Dígite a quantidade de alunos que deseja cadastrar: '))
 
@@ -46,6 +46,11 @@ while True:
                 else:
                     mediaFinal = mediaPratica
 
+            if mediaFinal % 1 > 0.75:
+                mediaFinal = int(mediaFinal) + 1
+            elif mediaFinal % 1 < 0.25:
+                mediaFinal = int(mediaFinal)
+
             listaNotaTeorica.append(f'|  Notas das provas teóricas: ')
             listaNotaTeorica.append(f'T1: {notaTeorica1}  ')
             listaNotaTeorica.append(f'T2: {notaTeorica2}  |  \n')
@@ -58,18 +63,88 @@ while True:
             listaAluno.append(listaNotaTeorica)
             listaAluno.append(listaNotaPratica)
             listaAluno.append(listaMediaPraticaTeorica)
-            listaAluno.append(f'|  Média final: {mediaFinal}  |  ')
+            listaAluno.append(f'|  Média final: {mediaFinal:.1f}  |  \n\n')
             listaAlunos.append(listaAluno)
             contadorCadastro += 1
+        print(f'Cadastro realizado com sucesso!')
 
     if opcaoSelecionada == '2':
         os.system('cls')
-        print(f'Gerando Boletins..')
+        print(f'Gerando Boletins..\n')
 
         for i in listaAlunos:
             for k in i:
                 for j in k:
                         print(f'{j}', end='')
-    print(f'\n')
-    input('Tecle enter para voltar!')
-           
+        print(f'\n')
+        input('Tecle enter para voltar!')
+        os.system('cls')
+
+    if opcaoSelecionada == '3':
+        os.system('cls')
+        pesquisaAluno = input(f'Dígite o nome do aluno: ')
+        print(f'Gerando Boletins por aluno..\n\n')
+        contAlunoNaoEncontrado = 0
+        for i in listaAlunos:
+            if i[0].find(pesquisaAluno) != -1: 
+                for k in i:
+                    for j in k:
+                        print(f'{j}', end='')
+            else:
+                contAlunoNaoEncontrado += 1
+        if contAlunoNaoEncontrado == len(listaAlunos):
+            print(f'Aluno não encontrado!')
+
+        print(f'\n')
+        input('Tecle enter para voltar!')
+        os.system('cls')
+
+    if opcaoSelecionada == '4':
+        os.system('cls')
+        print(f'Gerando alunos com maior média final..\n\n')
+        alunoMaiorMedia = ''
+        maiorMedia = 0
+        for i in listaAlunos:
+            mediaFinal = i[4].split(': ')[1]
+            mediaFinal = float(mediaFinal.split(' | ')[0])
+            if mediaFinal > maiorMedia:
+                maiorMedia = mediaFinal
+                alunoMaiorMedia = i[0].split(': ')[1]
+                alunoMaiorMedia = alunoMaiorMedia.split('\n')[0]
+
+        print(f'Aluno com maior média final:\n--> {alunoMaiorMedia}  com média {maiorMedia:.2f}')
+        input('Tecle enter para voltar!')
+        os.system('cls')
+
+    if opcaoSelecionada == '5':
+        os.system('cls')
+        print(f'Gerando alunos com menor média final..\n\n')
+        alunoMenorMedia = ''
+        menorMedia = 10
+        for i in listaAlunos:
+            mediaFinal = i[4].split(': ')[1]
+            mediaFinal = float(mediaFinal.split(' | ')[0])
+            if mediaFinal < menorMedia:
+                menorMedia = mediaFinal
+                alunoMenorMedia = i[0].split(': ')[1]
+                alunoMenorMedia = alunoMenorMedia.split('\n')[0]
+
+        print(f'Aluno com menor média final:\n--> {alunoMenorMedia}  com média {menorMedia:.2f}')
+        input('Tecle enter para voltar!')
+        os.system('cls')
+
+    if opcaoSelecionada == '6':
+        os.system('cls')
+        print(f'Gerando percentual de alunos com média maior que 5.0..\n\n')
+        contPercentAlunos = 0
+        for i in listaAlunos:
+            mediaFinal = i[4].split(': ')[1]
+            mediaFinal = float(mediaFinal.split(' | ')[0])
+            if mediaFinal > 5:
+                contPercentAlunos += 1
+
+        percentual = (contPercentAlunos / len(listaAlunos)) * 100
+        print(f'Percentual de alunos com média maior que 5.0: {percentual:.1f}%')
+        input('Tecle enter para voltar!')
+        os.system('cls')
+
