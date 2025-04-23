@@ -40,12 +40,29 @@ while True:
             listaNumeroVerificacao = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 
             verificador = False
+            verificador2 = False
             contEspacosVazios = 0
 
             nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
-
+            
             while verificador == False:
+                contNum = 0
+                while verificador2 == False:
+                    for n in listaNumeroVerificacao:
+                        if nomeAluno.count(n) > 0:
+                            contNum += 1
+                        if contNum > 0:
+                            os.system('cls')
+                            print(f'O nome não pode conter números, por favor digite novamente!')
+                            nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
+                            contNum = 0
+                            break
+                        elif contNum == 0:
+                            verificador2 = True
+                            break
 
+                verificador2 = False
+                
                 for aluno in listaAlunos:
                     if aluno[0].find(nomeAluno) != -1:
                         os.system('cls')
@@ -69,25 +86,9 @@ while True:
                         nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
                         contEspacosVazios = 0
                         continue
-
-                for i in nomeAluno:
-
-                    if listaNumeroVerificacao.count(i) != 0:
-                        os.system('cls')
-                        print(f'O nome não pode conter números, por favor digite novamente!')
-                        nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
-                        break
-                        
-                    elif len(nomeAluno) < 9 and i.count(' ') == 0:
-                        os.system('cls')
-                        print(f'Por favor, dígite o nome inteiro do aluno!')
-                        nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
-                        
-                    else:
-                        verificador = True
-                        nomeAluno = nomeAluno.title()
-                        break
-
+                else:
+                    verificador = True
+            
             os.system('cls')
             print(f'Iniciando o cadastro do aluno {nomeAluno}...\n')
             print('Preencha os campos abaixo com as notas!')
@@ -316,7 +317,7 @@ while True:
             os.system('cls')
         else:
             os.system('cls')
-            print(f'Gerando percentual de alunos com média maior que 5.0..\n\n')
+            print(f'Gerando percentual de alunos com média maior que 5.0..')
             contPercentAlunos = 0
             for i in listaAlunos:
                 mediaFinal = i[4].split(': ')[1]
