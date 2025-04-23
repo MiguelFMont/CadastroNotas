@@ -11,9 +11,9 @@ while True:
         6. Pencentual de alunos com Média Final maior que 5.0
         ''')
     opcaoSelecionada = input(f'--> ')
+    os.system('cls')
 
     if opcaoSelecionada == '1':
-        os.system('cls')
 
         qtdCadastro = (input(f'Dígite a quantidade de alunos que deseja cadastrar: '))
         
@@ -22,6 +22,11 @@ while True:
             print(f'Quantidade inválida, por favor digite novamente!')
             qtdCadastro = (input(f'Dígite a quantidade de alunos que deseja cadastrar: '))
         else:
+            for i in qtdCadastro:
+                if qtdCadastro.count(',') >= 1:
+                    os.system('cls')
+                    print(f'Quantidade inválida, por favor digite novamente!')
+                    qtdCadastro = (input(f'Dígite a quantidade de alunos que deseja cadastrar: '))
             qtdCadastro = int(qtdCadastro)
 
         contadorCadastro = 0
@@ -40,6 +45,13 @@ while True:
             nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
 
             while verificador == False:
+
+                for aluno in listaAlunos:
+                    if aluno[0].find(nomeAluno) != -1:
+                        os.system('cls')
+                        print(f'O nome já está cadastrado, por favor digite novamente!')
+                        nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
+                        continue
 
                 for i in nomeAluno:
 
@@ -64,17 +76,20 @@ while True:
                         os.system('cls')
                         print(f'O nome não pode conter números, por favor digite novamente!')
                         nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
+                        break
                         
                     elif len(nomeAluno) < 9 and i.count(' ') == 0:
                         os.system('cls')
-                        print(f'Por favor, dígito o nome inteiro do aluno!')
+                        print(f'Por favor, dígite o nome inteiro do aluno!')
                         nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
                         
                     else:
                         verificador = True
                         nomeAluno = nomeAluno.title()
                         break
+
             os.system('cls')
+            print(f'Iniciando o cadastro do aluno {nomeAluno}...\n')
             print('Preencha os campos abaixo com as notas!')
 
             notaTeorica1 = (input(f'prímeira prova teórica: '))
@@ -84,7 +99,25 @@ while True:
                 print(f'Nota inválida, por favor digite novamente!')
                 notaTeorica1 = (input(f'prímeira prova teórica: '))
             else:
+                
+                for i in notaTeorica1:
+
+                    if notaTeorica1.count(',') > 1:
+                        os.system('cls')
+                        print(f'Nota inválida, por favor digite novamente!')
+                        notaTeorica1 = (input(f'prímeira prova teórica: '))
+                        continue
+
+                    else:
+                        notaTeorica1 = notaTeorica1.replace(',', '.')
+                        break
+
                 notaTeorica1 = float(notaTeorica1)
+                while notaTeorica1 < 0 or notaTeorica1 > 10:
+                    os.system('cls')
+                    print(f'A nota não pode ser maior que 10 ou menor que 0!')
+                    notaTeorica1 = float(input(f'prímeira prova teórica: '))
+                os.system('cls')
 
             notaTeorica2 = (input(f'segunda prova teórica: '))
 
@@ -93,7 +126,23 @@ while True:
                 print(f'Nota inválida, por favor digite novamente!')
                 notaTeorica2 = (input(f'segunda prova teórica: '))
             else:
+                 
+                for i in notaTeorica2:
+                    if notaTeorica2.count(',') > 1:
+                        os.system('cls')
+                        print(f'Nota inválida, por favor digite novamente!')
+                        notaTeorica2 = (input(f'segunda prova teórica: '))
+                        continue
+                    else:
+                        notaTeorica2 = notaTeorica2.replace(',', '.')
+                        break
+
                 notaTeorica2 = float(notaTeorica2)
+                while notaTeorica2 < 0 or notaTeorica2 > 10:
+                    os.system('cls')
+                    print(f'A nota não pode ser maior que 10 ou menor que 0!')
+                    notaTeorica2 = float(input(f'segunda prova teórica: '))
+                os.system('cls')
 
             notaPratica1 = (input(f'primeiro projeto prático: '))
 
@@ -102,7 +151,22 @@ while True:
                 print(f'Nota inválida, por favor digite novamente!')
                 notaPratica1 = (input(f'primeiro projeto prático: '))
             else:
+                for i in notaPratica1:
+                    if notaPratica1.count(',') > 1:
+                        os.system('cls')
+                        print(f'Nota inválida, por favor digite novamente!')
+                        notaPratica1 = (input(f'primeiro projeto prático: '))
+                        continue
+                    else:
+                        notaPratica1 = notaPratica1.replace(',', '.')
+                        break
+                   
                 notaPratica1 = float(notaPratica1)
+                while notaPratica1 < 0 or notaPratica1 > 10:
+                    os.system('cls')
+                    print(f'A nota não pode ser maior que 10 ou menor que 0!')
+                    notaPratica1 = float(input(f'primeiro projeto prático: '))
+                os.system('cls')
 
             notaPratica2 = (input(f'segundo projeto prático: '))
 
@@ -111,9 +175,23 @@ while True:
                 print(f'Nota inválida, por favor digite novamente!')
                 notaPratica2 = (input(f'segundo projeto prático: '))
             else:
-                notaPratica2 = float(notaPratica2)
 
-            os.system('cls')
+                for i in notaPratica2:
+                    if notaPratica2.count(',') > 1:
+                        os.system('cls')
+                        print(f'Nota inválida, por favor digite novamente!')
+                        notaPratica2 = (input(f'segundo projeto prático: '))
+                        continue
+                    else:
+                        notaPratica2 = notaPratica2.replace(',', '.')
+                        break
+                    
+                notaPratica2 = float(notaPratica2)
+                while notaPratica2 < 0 or notaPratica2 > 10:
+                    os.system('cls')
+                    print(f'A nota não pode ser maior que 10 ou menor que 0!')
+                    notaPratica2 = float(input(f'segundo projeto prático: '))
+                os.system('cls')
 
             mediaTeorica = (0.4 * notaTeorica1) + (0.6 * notaTeorica2)
             mediaPratica = (notaPratica1 + notaPratica2) / 2
@@ -137,16 +215,19 @@ while True:
             listaNotaPratica.append(f'|  Notas das provas práticas: ')
             listaNotaPratica.append(f'P1: {notaPratica1}  ')
             listaNotaPratica.append(f'P2: {notaPratica2}  |  \n')
-            listaMediaPraticaTeorica.append(f'|  Média prática: {mediaPratica  }  |  \n')
-            listaMediaPraticaTeorica.append(f'|  Média teórica: {mediaTeorica  }  |  \n')
+            listaMediaPraticaTeorica.append(f'|  Média prática: {mediaPratica  :.2f}  |  \n')
+            listaMediaPraticaTeorica.append(f'|  Média teórica: {mediaTeorica  :.2f}  |  \n')
             listaAluno.append(f'|  Nome: {nomeAluno}  |\n')
             listaAluno.append(listaNotaTeorica)
             listaAluno.append(listaNotaPratica)
             listaAluno.append(listaMediaPraticaTeorica)
-            listaAluno.append(f'|  Média final: {mediaFinal:.1f}  |  \n\n')
+            listaAluno.append(f'|  Média final: {mediaFinal:.2f}  |  \n\n')
             listaAlunos.append(listaAluno)
             contadorCadastro += 1
-        print(f'Cadastro realizado com sucesso!')
+            print(f'Cadastro do aluno {nomeAluno} concluído com sucesso!\n')
+        
+        input('Tecle enter para voltar!')
+        os.system('cls')
 
     if opcaoSelecionada == '2':
         if listaAlunos == []:
@@ -166,7 +247,6 @@ while True:
             os.system('cls')
 
     if opcaoSelecionada == '3':
-        os.system('cls')
         pesquisaAluno = input(f'Dígite o nome do aluno: ')
         pesquisaAluno = pesquisaAluno.title()
         print(f'Gerando Boletins por aluno..\n\n')
