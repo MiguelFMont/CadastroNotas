@@ -1,7 +1,8 @@
 import os
 
 listaAlunos = []
-while True: 
+menuOpcoes = True
+while menuOpcoes == True: 
     print(f'''Opções:
         1. Cadatrar alunos e notas
         2. Boletins
@@ -9,6 +10,8 @@ while True:
         4. Alunos com maior Média Final
         5. Aluno com menor Média Final
         6. Pencentual de alunos com Média Final maior que 5.0
+        7. Excluir aluno cadastrado
+        8. sair
         ''')
     opcaoSelecionada = input(f'--> ')
     os.system('cls')
@@ -50,6 +53,21 @@ while True:
             nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
             
             while verificador == False:
+
+                contAlunoNaoEncontrado = 0
+                nomeAluno = nomeAluno.title()
+                for i in listaAlunos:
+                    if i[0].find(nomeAluno) != -1: 
+                        os.system('cls')
+                        print(f'O aluno {nomeAluno} já foi cadastrado, por favor digite novamente!')
+                        nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
+                        contAlunoNaoEncontrado = 0
+                        continue
+                    else:
+                        contAlunoNaoEncontrado += 1
+                if contAlunoNaoEncontrado == len(listaAlunos):
+                    break
+
                 contNum = 0
                 while verificador2 == False:
                     for n in listaNumeroVerificacao:
@@ -65,18 +83,18 @@ while True:
                         verificador2 = True   
 
                 verificador2 = False
-                
-                for aluno in listaAlunos:
-                    if aluno[0].find(nomeAluno) != -1:
-                        os.system('cls')
-                        print(f'O nome já está cadastrado, por favor digite novamente!')
-                        nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
-                        continue
 
                 for i in nomeAluno:
-
+                    
                     if i == ' ':
                         contEspacosVazios += 1
+
+                while contEspacosVazios > 5:
+                    os.system('cls')
+                    print(f'O nome não pode conter mais de 5 espaços, por favor digite novamente!')
+                    nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
+                    contEspacosVazios = 0
+                    continue
 
                 if nomeAluno == '':
                     os.system('cls')
@@ -93,7 +111,7 @@ while True:
                     verificador = True
             
             os.system('cls')
-            print(f'Iniciando o cadastro do aluno {nomeAluno}...\n')
+            print(f'Iniciando o cadastro do aluno {nomeAluno.title()}...\n')
             print('Preencha os campos abaixo com as notas!')
 
             notaTeorica1 = (input(f'prímeira prova teórica: '))
@@ -126,10 +144,6 @@ while True:
                         notaTeorica1 = (input(f'prímeira prova teórica: '))
                         continue
                     else:
-                        # Foi útilizado replace para trocar ',' por '.'
-                        # Foi conversado e autorizado pela professora (Lucia)
-                        # retirado do site https://docs.python.org/pt-br/3.6/library/stdtypes.html#text-sequence-type-str
-                        # Do slide 7.Strings
                         notaTeorica1 = notaTeorica1.replace(',', '.')
                         break
                 notaTeorica1 = float(notaTeorica1)
@@ -278,14 +292,14 @@ while True:
             listaNotaPratica.append(f'P2: {notaPratica2}  |  \n')
             listaMediaPraticaTeorica.append(f'|  Média prática: {mediaPratica  :.2f}  |  \n')
             listaMediaPraticaTeorica.append(f'|  Média teórica: {mediaTeorica  :.2f}  |  \n')
-            listaAluno.append(f'|  Nome: {nomeAluno}  |\n')
+            listaAluno.append(f'|  Nome: {nomeAluno.title()}  |\n')
             listaAluno.append(listaNotaTeorica)
             listaAluno.append(listaNotaPratica)
             listaAluno.append(listaMediaPraticaTeorica)
             listaAluno.append(f'|  Média final: {mediaFinal:.2f}  |  \n\n')
             listaAlunos.append(listaAluno)
             contadorCadastro += 1
-            print(f'Cadastro do aluno {nomeAluno} concluído com sucesso!\n')
+            print(f'Cadastro do aluno {nomeAluno.title()} concluído com sucesso!\n')
         
         input('Tecle enter para voltar!')
         os.system('cls')
@@ -306,11 +320,12 @@ while True:
             print(f'\n')
             input('Tecle enter para voltar!')
             os.system('cls')
+            print(listaAlunos)
 
     if opcaoSelecionada == '3':
         pesquisaAluno = input(f'Dígite o nome do aluno: ')
         pesquisaAluno = pesquisaAluno.title()
-        print(f'Gerando Boletins por aluno..\n\n')
+        print(f'Gerando Boletim por aluno..\n\n')
         contAlunoNaoEncontrado = 0
         for i in listaAlunos:
             if i[0].find(pesquisaAluno) != -1: 
@@ -393,3 +408,37 @@ while True:
             print(f'Percentual de alunos com média maior que 5.0: {percentual:.1f}%')
             input('Tecle enter para voltar!')
             os.system('cls')
+
+    if opcaoSelecionada == '7':
+        if listaAlunos == []:
+            print('\nNenhum aluno cadastrado, por favor cadastre um aluno!\n')
+            input('Tecle enter para voltar!')
+            os.system('cls')
+        else:
+            print(f'Gerando lista de alunos cadastrados..\n\n')
+            for i in listaAlunos:
+                for k in i:
+                    for j in k:
+                        print(f'{j}', end='')
+            print(f'\n')
+           
+            contAlunoNaoEncontrado = 0
+            nomeAluno = input(f'Dígite o nome do aluno que deseja excluir: ')
+            nomeAluno = nomeAluno.title()
+            for i in listaAlunos:
+                if i[0].find(nomeAluno) != -1: 
+                    listaAlunos.remove(i)
+                    print(f'Aluno {nomeAluno} excluído com sucesso!')
+                else:
+                    contAlunoNaoEncontrado += 1
+            if contAlunoNaoEncontrado == len(listaAlunos):
+                print(f'Aluno não encontrado!')
+
+            print(f'\n')
+            input('Tecle enter para voltar!')
+            os.system('cls')
+       
+    if opcaoSelecionada == '8':
+        os.system('cls')
+        print(f'Encerrando o programa!')
+        menuOpcoes = False

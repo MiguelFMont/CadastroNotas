@@ -1,4 +1,8 @@
-numeroStr = '1,2,3,4,5,6'
-separador = numeroStr.split('')
+nome = '|  Nome: Miguel Fernandes Monteiro  |\n'
 
-print(separador)
+separadorNome = nome.split(': ')[1]
+separadorNome = separadorNome.split('  |')[0]
+print(f'''
+{separadorNome}
+
+''')
