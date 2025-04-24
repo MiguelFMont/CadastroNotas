@@ -56,6 +56,7 @@ while menuOpcoes == True:
 
                 contAlunoNaoEncontrado = 0
                 nomeAluno = nomeAluno.title()
+
                 for i in listaAlunos:
                     if i[0].find(nomeAluno) != -1: 
                         os.system('cls')
@@ -271,7 +272,7 @@ while menuOpcoes == True:
             mediaTeorica = (0.4 * notaTeorica1) + (0.6 * notaTeorica2)
             mediaPratica = (notaPratica1 + notaPratica2) / 2
 
-            if mediaTeorica and mediaPratica > 5:
+            if mediaTeorica > 5 and mediaPratica > 5:
                 mediaFinal = (0.3 * mediaPratica) + (0.7 * mediaTeorica)
             else:
                 if mediaTeorica < mediaPratica:
