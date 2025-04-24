@@ -17,7 +17,7 @@ while True:
 
         qtdCadastro = (input(f'Dígite a quantidade de alunos que deseja cadastrar: '))
         
-        while qtdCadastro == '' or qtdCadastro < '0' or qtdCadastro > '9':
+        while qtdCadastro == '' or qtdCadastro not in '0123456789':
             os.system('cls')
             print(f'Quantidade inválida, por favor digite novamente!')
             qtdCadastro = (input(f'Dígite a quantidade de alunos que deseja cadastrar: '))
@@ -37,10 +37,14 @@ while True:
             listaNotaPratica = []
             listaNotaTeorica = []
             listaMediaPraticaTeorica = []
-            listaNumeroVerificacao = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+            listaNumeroVerificacao = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',', '.']
 
-            verificador = False
+            verificador = False 
+            # verifica se o nome do aluno já foi cadastrado
             verificador2 = False
+            # verifica se o nome do aluno contém números
+            verificador3 = False
+            # verifica se a nota é válida
             contEspacosVazios = 0
 
             nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
@@ -51,15 +55,14 @@ while True:
                     for n in listaNumeroVerificacao:
                         if nomeAluno.count(n) > 0:
                             contNum += 1
-                        if contNum > 0:
-                            os.system('cls')
-                            print(f'O nome não pode conter números, por favor digite novamente!')
-                            nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
-                            contNum = 0
-                            break
-                        elif contNum == 0:
-                            verificador2 = True
-                            break
+                    if contNum > 0:
+                        os.system('cls')
+                        print(f'O nome não pode conter números, por favor digite novamente!')
+                        nomeAluno = input(f'Dígite o nome completo do {contadorCadastro + 1}º aluno: ')
+                        contNum = 0
+                        continue
+                    elif contNum == 0:
+                        verificador2 = True   
 
                 verificador2 = False
                 
@@ -95,12 +98,26 @@ while True:
 
             notaTeorica1 = (input(f'prímeira prova teórica: '))
 
-            while notaTeorica1 == '' or notaTeorica1 < '0' or notaTeorica1 > '9':
+            while notaTeorica1 == '':
                 os.system('cls')
                 print(f'Nota inválida, por favor digite novamente!')
                 notaTeorica1 = (input(f'prímeira prova teórica: '))
             else:
-                
+                contNumInvalido = 0
+                while verificador3 == False:
+                    for n in notaTeorica1:
+                        if listaNumeroVerificacao.count(n) == 0:
+                            contNumInvalido += 1
+                    if contNumInvalido > 0:
+                        os.system('cls')
+                        print(f'Nota inválida, por favor digite novamente!')
+                        notaTeorica1 = (input(f'prímeira prova teórica: '))
+                        contNumInvalido = 0
+                        continue
+                    elif contNumInvalido == 0:
+                        verificador3 = True
+                verificador3 = False
+                        
                 for i in notaTeorica1:
 
                     if notaTeorica1.count(',') > 1:
@@ -108,12 +125,15 @@ while True:
                         print(f'Nota inválida, por favor digite novamente!')
                         notaTeorica1 = (input(f'prímeira prova teórica: '))
                         continue
-
                     else:
+                        # Foi útilizado replace para trocar ',' por '.'
+                        # Foi conversado e autorizado pela professora (Lucia)
+                        # retirado do site https://docs.python.org/pt-br/3.6/library/stdtypes.html#text-sequence-type-str
+                        # Do slide 7.Strings
                         notaTeorica1 = notaTeorica1.replace(',', '.')
                         break
-
                 notaTeorica1 = float(notaTeorica1)
+                    
                 while notaTeorica1 < 0 or notaTeorica1 > 10:
                     os.system('cls')
                     print(f'A nota não pode ser maior que 10 ou menor que 0!')
@@ -122,12 +142,25 @@ while True:
 
             notaTeorica2 = (input(f'segunda prova teórica: '))
 
-            while notaTeorica2 == '' or notaTeorica2 < '0' or notaTeorica2 > '9':
+            while notaTeorica2 == '':
                 os.system('cls')
                 print(f'Nota inválida, por favor digite novamente!')
                 notaTeorica2 = (input(f'segunda prova teórica: '))
             else:
-                 
+                while verificador3 == False:
+                    for n in notaTeorica2:
+                        if listaNumeroVerificacao.count(n) == 0:
+                            contNumInvalido += 1
+                    if contNumInvalido > 0:
+                        os.system('cls')
+                        print(f'Nota inválida, por favor digite novamente!')
+                        notaTeorica2 = (input(f'Segunda prova teórica: '))
+                        contNumInvalido = 0
+                        continue
+                    elif contNumInvalido == 0:
+                        verificador3 = True
+                verificador3 = False
+
                 for i in notaTeorica2:
                     if notaTeorica2.count(',') > 1:
                         os.system('cls')
@@ -147,11 +180,25 @@ while True:
 
             notaPratica1 = (input(f'primeiro projeto prático: '))
 
-            while notaPratica1 == '' or notaPratica1 < '0' or notaPratica1 > '9':
+            while notaPratica1 == '':
                 os.system('cls')
                 print(f'Nota inválida, por favor digite novamente!')
                 notaPratica1 = (input(f'primeiro projeto prático: '))
             else:
+                while verificador3 == False:
+                    for n in notaPratica1:
+                        if listaNumeroVerificacao.count(n) == 0:
+                            contNumInvalido += 1
+                    if contNumInvalido > 0:
+                        os.system('cls')
+                        print(f'Nota inválida, por favor digite novamente!')
+                        notaPratica1 = (input(f'Primeira nota prática: '))
+                        contNumInvalido = 0
+                        continue
+                    elif contNumInvalido == 0:
+                        verificador3 = True
+                verificador3 = False
+
                 for i in notaPratica1:
                     if notaPratica1.count(',') > 1:
                         os.system('cls')
@@ -171,11 +218,24 @@ while True:
 
             notaPratica2 = (input(f'segundo projeto prático: '))
 
-            while notaPratica2 == '' or notaPratica2 < '0' or notaPratica2 > '9':
+            while notaPratica2 == '':
                 os.system('cls')
                 print(f'Nota inválida, por favor digite novamente!')
                 notaPratica2 = (input(f'segundo projeto prático: '))
             else:
+                while verificador3 == False:
+                    for n in notaPratica2:
+                        if listaNumeroVerificacao.count(n) == 0:
+                            contNumInvalido += 1
+                    if contNumInvalido > 0:
+                        os.system('cls')
+                        print(f'Nota inválida, por favor digite novamente!')
+                        notaPratica2 = (input(f'Segunda nota prática: '))
+                        contNumInvalido = 0
+                        continue
+                    elif contNumInvalido == 0:
+                        verificador3 = True
+                verificador3 = False
 
                 for i in notaPratica2:
                     if notaPratica2.count(',') > 1:
@@ -305,6 +365,10 @@ while True:
                     menorMedia = mediaFinal
                     alunoMenorMedia = i[0].split(': ')[1]
                     alunoMenorMedia = alunoMenorMedia.split('\n')[0]
+
+                    # Split foi utilizado para retirar o '\n' do nome do aluno
+                    # Foi retirado do site https://docs.python.org/pt-br/3.6/library/stdtypes.html#text-sequence-type-str
+                    # Do slide 7.Strings (Autorizado pela professora Lucia)
 
             print(f'Aluno com menor média final:\n--> {alunoMenorMedia}  com média {menorMedia:.2f}')
             input('Tecle enter para voltar!')
