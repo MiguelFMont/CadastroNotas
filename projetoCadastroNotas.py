@@ -1,6 +1,7 @@
 import os
 
 listaAlunos = []
+listaNumeroVerificacao = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',', '.']
 menuOpcoes = True
 while menuOpcoes == True: 
     print(f'''Opções:
@@ -23,11 +24,18 @@ while menuOpcoes == True:
         while verificador == False:
             qtdCadastro = (input(f'Digite a quantidade de alunos que deseja cadastrar: '))
             
-            if qtdCadastro == '' or qtdCadastro not in '0123456789':
+            if qtdCadastro == '':
                 os.system('cls')
                 print(f'Quantidade inválida, por favor, digite novamente!\n')
                 continue
             else:
+                # fazer a mesma verificação de números que foi feita com as notas
+                for i in qtdCadastro:
+                    if i not in listaNumeroVerificacao:
+                        os.system('cls')
+                        print(f'Quantidade inválida, por favor, digite novamente!\n')
+
+
                 for i in qtdCadastro:
                     if qtdCadastro.count(',') >= 1:
                         os.system('cls')
@@ -46,8 +54,7 @@ while menuOpcoes == True:
             listaNotaPratica = []
             listaNotaTeorica = []
             listaMediaPraticaTeorica = []
-            listaNumeroVerificacao = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',', '.']
-
+            
             verificador = False 
             # garante que todos os loopings de verificação continuem até que todas as verificações sejam verdadeiras
 
@@ -247,7 +254,6 @@ while menuOpcoes == True:
                             verificador = True
             os.system('cls')
             verificador = False
-
 
             mediaTeorica = (0.4 * notaTeorica1) + (0.6 * notaTeorica2)
             mediaPratica = (notaPratica1 + notaPratica2) / 2

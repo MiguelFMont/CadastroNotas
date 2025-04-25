@@ -9,7 +9,7 @@ for i in listaNome:
     if cont == len(listaNome):
         print('Cadastro de aluno iniciado')
 '''
-
+'''
 listaAlunos = [['NOME: Miguel'], ['NOME: João']]
 listaNome = []
 for i in listaAlunos:
@@ -25,3 +25,9 @@ for i in listaAlunos:
                 cont += 1
     listaNome.append(listaNome.count(i))
 print(listaNome)
+'''
+
+num = (input('Digite um número: '))
+
+if num not in '0123456789.':
+    print('O número não pode conter letras ou caracteres especiais!')
