@@ -18,22 +18,28 @@ while menuOpcoes == True:
 
     if opcaoSelecionada == '1':
 
-        qtdCadastro = (input(f'Digite a quantidade de alunos que deseja cadastrar: '))
-        
-        while qtdCadastro == '' or qtdCadastro not in '0123456789':
-            os.system('cls')
-            print(f'Quantidade inválida, por favor, digite novamente!')
+        print(f'Opção "Cadastrar alunos e notas" selecionada!\n')
+        verificador = False 
+        while verificador == False:
             qtdCadastro = (input(f'Digite a quantidade de alunos que deseja cadastrar: '))
-        else:
-            for i in qtdCadastro:
-                if qtdCadastro.count(',') >= 1:
-                    os.system('cls')
-                    print(f'Quantidade inválida, por favor, digite novamente!')
-                    qtdCadastro = (input(f'Digite a quantidade de alunos que deseja cadastrar: '))
-            qtdCadastro = int(qtdCadastro)
+            
+            if qtdCadastro == '' or qtdCadastro not in '0123456789':
+                os.system('cls')
+                print(f'Quantidade inválida, por favor, digite novamente!\n')
+                continue
+            else:
+                for i in qtdCadastro:
+                    if qtdCadastro.count(',') >= 1:
+                        os.system('cls')
+                        print(f'Quantidade inválida, por favor, digite novamente!\n')
+                        continue
+                    else:
+                        qtdCadastro = int(qtdCadastro)
+                        verificador = True
+        os.system('cls')
+        verificador = False
 
         contCadastro = 0
-
         while contCadastro < qtdCadastro:
 
             listaAluno = []
@@ -43,56 +49,58 @@ while menuOpcoes == True:
             listaNumeroVerificacao = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',', '.']
 
             verificador = False 
-            # faz toda a verificação do nome
+            # garante que todos os loopings de verificação continuem até que todas as verificações sejam verdadeiras
 
             while verificador == False:
                 nomeAluno = input(f'Digite o nome completo do {contCadastro + 1}º aluno: ')
                 nomeAluno = nomeAluno.title()
                 contEspacosVazios = 0
-
-                for i in listaAlunos:
-                    if i[0].find(nomeAluno) != -1: 
-                        os.system('cls')
-                        print(f'O aluno {nomeAluno} já foi cadastrado, por favor, digite novamente!')
-                        continue
-
+                contAlunoNaoEncontrado = 0
                 contNum = 0
-
-                for n in listaNumeroVerificacao:
-                    if nomeAluno.count(n) > 0:
-                        contNum += 1
-                if contNum > 0:
-                    os.system('cls')
-                    print(f'O nome não pode conter números, por favor, digite novamente!')
-                    contNum = 0
-                    continue
-
-                for i in nomeAluno:  
-                    if i == ' ':
-                        contEspacosVazios += 1
 
                 if len(nomeAluno) < 15:
                     os.system('cls')
-                    print(f'O nome não pode conter mais de 5 espaços nem conter menos que 10 caracteres!')
+                    print(f'O nome não pode conter mais de 5 espaços nem conter menos que 10 caracteres!\n')
                     contEspacosVazios = 0
                     continue
 
                 if nomeAluno == '':
                     os.system('cls')
-                    print(f'O nome não pode conter somente espaços vazios, por favor, digite novamente!')
+                    print(f'O nome não pode conter somente espaços vazios, por favor, digite novamente!\n')
                     continue
+      
+                for i in nomeAluno:  
+                    if i == ' ':
+                        contEspacosVazios += 1
 
                 if len(nomeAluno) == (contEspacosVazios):
                         os.system('cls')
-                        print(f'O nome não pode conter somente espaços vazios, por favor, digite novamente!')
+                        print(f'O nome não pode conter somente espaços vazios, por favor, digite novamente!\n')
                         contEspacosVazios = 0
                         continue
-                else:
+                
+                for n in listaNumeroVerificacao:
+                    if nomeAluno.count(n) > 0:
+                        contNum += 1
+                if contNum > 0:
+                    os.system('cls')
+                    print(f'O nome não pode conter números, por favor, digite novamente!\n')
+                    contNum = 0
+                    continue
+
+                for i in listaAlunos:
+                    if i[0].find(nomeAluno) != -1: 
+                        os.system('cls')
+                        print(f'O aluno {nomeAluno} já foi cadastrado, por favor, digite novamente!\n')
+                        break
+                    else:
+                        contAlunoNaoEncontrado += 1
+                if contAlunoNaoEncontrado == len(listaAlunos):    
                     verificador = True
 
             os.system('cls')
             print(f'Iniciando o cadastro do aluno {nomeAluno.title()}...\n')
-            print('Preencha os campos abaixo com as notas!')
+            print('Preencha os campos abaixo com as notas!\n')
             verificador = False
 
             while verificador == False:
@@ -100,7 +108,7 @@ while menuOpcoes == True:
 
                 if notaTeorica1 == '':
                     os.system('cls')
-                    print(f'Nota inválida, por favor, digite novamente!')
+                    print(f'Nota inválida, por favor, digite novamente!\n')
                     continue
                 else:
                     contNumInvalido = 0
@@ -110,12 +118,12 @@ while menuOpcoes == True:
                             contNumInvalido += 1
                     if contNumInvalido > 0:
                         os.system('cls')
-                        print(f'Nota inválida, por favor, digite novamente!')                    
+                        print(f'Nota inválida, por favor, digite novamente!\n')                    
                         continue
 
                     if notaTeorica1.count(',') > 1:
                         os.system('cls')
-                        print(f'Nota inválida, por favor, digite novamente!')
+                        print(f'Nota inválida, por favor, digite novamente!\n')
                         continue
                     else:
                         notaTeorica1 = notaTeorica1.replace(',', '.')
@@ -137,7 +145,7 @@ while menuOpcoes == True:
 
                 if notaTeorica2 == '':
                     os.system('cls')
-                    print(f'Nota inválida, por favor, digite novamente!')
+                    print(f'Nota inválida, por favor, digite novamente!\n')
                     continue
                 else:
                     contNumInvalido = 0
@@ -147,12 +155,12 @@ while menuOpcoes == True:
                             contNumInvalido += 1
                     if contNumInvalido > 0:
                         os.system('cls')
-                        print(f'Nota inválida, por favor, digite novamente!')                    
+                        print(f'Nota inválida, por favor, digite novamente!\n')                    
                         continue
 
                     if notaTeorica2.count(',') > 1:
                         os.system('cls')
-                        print(f'Nota inválida, por favor, digite novamente!')
+                        print(f'Nota inválida, por favor, digite novamente!\n')
                         continue
                     else:
                         notaTeorica2 = notaTeorica2.replace(',', '.')
@@ -169,11 +177,11 @@ while menuOpcoes == True:
             os.system('cls')
             verificador = False
             while verificador == False:
-                notaPratica1 = (input(f'segunda prova teórica: '))
+                notaPratica1 = (input(f'primeira prova prática: '))
 
                 if notaPratica1 == '':
                     os.system('cls')
-                    print(f'Nota inválida, por favor, digite novamente!')
+                    print(f'Nota inválida, por favor, digite novamente!\n')
                     continue
                 else:
                     contNumInvalido = 0
@@ -183,12 +191,12 @@ while menuOpcoes == True:
                             contNumInvalido += 1
                     if contNumInvalido > 0:
                         os.system('cls')
-                        print(f'Nota inválida, por favor, digite novamente!')                    
+                        print(f'Nota inválida, por favor, digite novamente!\n')                    
                         continue
 
                     if notaPratica1.count(',') > 1:
                         os.system('cls')
-                        print(f'Nota inválida, por favor, digite novamente!')
+                        print(f'Nota inválida, por favor, digite novamente!\n')
                         continue
                     else:
                         notaPratica1 = notaPratica1.replace(',', '.')
@@ -205,11 +213,11 @@ while menuOpcoes == True:
             os.system('cls')
             verificador = False
             while verificador == False:
-                notaPratica2 = (input(f'segunda prova teórica: '))
+                notaPratica2 = (input(f'segunda prova prática: '))
 
                 if notaPratica2 == '':
                     os.system('cls')
-                    print(f'Nota inválida, por favor, digite novamente!')
+                    print(f'Nota inválida, por favor, digite novamente!\n')
                     continue
                 else:
                     contNumInvalido = 0
@@ -219,12 +227,12 @@ while menuOpcoes == True:
                             contNumInvalido += 1
                     if contNumInvalido > 0:
                         os.system('cls')
-                        print(f'Nota inválida, por favor, digite novamente!')                    
+                        print(f'Nota inválida, por favor, digite novamente!\n')                    
                         continue
 
                     if notaPratica2.count(',') > 1:
                         os.system('cls')
-                        print(f'Nota inválida, por favor, digite novamente!')
+                        print(f'Nota inválida, por favor, digite novamente!\n')
                         continue
                     else:
                         notaPratica2 = notaPratica2.replace(',', '.')
@@ -274,34 +282,34 @@ while menuOpcoes == True:
             contCadastro += 1
             print(f'Cadastro do aluno {nomeAluno.title()} concluído com sucesso!\n')
         
-        input('Tecle Enter para voltar!')
+        input('Tecle Enter para voltar!\n')
         os.system('cls')
 
-    if opcaoSelecionada == '2':   
+    if opcaoSelecionada == '2': 
+        print(f'Opção "Boletins" selecionada!\n')  
         if listaAlunos == []:
-            print(f'\nNenhum aluno cadastrado, por favor, cadastre um aluno!\n')
-            input('Tecle Enter para voltar!')
+            print(f'Nenhum aluno cadastrado, por favor, cadastre um aluno!\n')
+            input('Tecle Enter para voltar!\n')
             os.system('cls')
         else:
             os.system('cls')
-            print(f'\nGerando Boletins..\n')
+            print(f'Gerando Boletins..\n')
 
             for i in listaAlunos:
                 for k in i:
                     for j in k:
                             print(f'{j}', end='')
             print(f'\n')
-            input('Tecle Enter para voltar!')
+            input('Tecle Enter para voltar!\n')
             os.system('cls')
 
     if opcaoSelecionada == '3':
-        os.system('cls')
         print(f'Opção "Filtro de boletim por aluno" selecionada!\n')
         verificador = False
         while verificador == False:
             if listaAlunos == []:
                 print(f'\nNenhum aluno cadastrado, por favor, cadastre um aluno!\n')
-                input('Tecle Enter para voltar!')
+                input('Tecle Enter para voltar!\n')
                 os.system('cls')
                 break
             else:
@@ -317,18 +325,19 @@ while menuOpcoes == True:
                     else:
                         contAlunoNaoEncontrado += 1
                 if contAlunoNaoEncontrado == len(listaAlunos):
-                    print(f'Aluno não encontrado!')
+                    print(f'Aluno não encontrado!\n')
                     continue
                 else:
-                    input('Tecle Enter para voltar!')
+                    input('Tecle Enter para voltar!\n')
                     verificador = True
     os.system('cls')
     verificador = False
 
     if opcaoSelecionada == '4':
+        print(f'Opção "Alunos com maior média final" selecionada\n')
         if listaAlunos == []:
-            print('\nNenhum aluno cadastrado, por favor, cadastre um aluno!\n')
-            input('Tecle Enter para voltar!')
+            print('Nenhum aluno cadastrado, por favor, cadastre um aluno!\n')
+            input('Tecle Enter para voltar!\n')
             os.system('cls')
         else:
             os.system('cls')
@@ -348,13 +357,14 @@ while menuOpcoes == True:
                     # Do slide 7.Strings (Autorizado pela professora Lucia)
 
             print(f'Aluno com maior média final:\n--> {alunoMaiorMedia}  com média {maiorMedia:.2f}')
-            input('Tecle Enter para voltar!')
+            input('Tecle Enter para voltar!\n')
             os.system('cls')
 
     if opcaoSelecionada == '5':
+        print(f'Opção "Aluno com menor média final" selecionada!\n')
         if listaAlunos == []:
-            print('\nNenhum aluno cadastrado, por favor cadastre um aluno!\n')
-            input('Tecle Enter para voltar!')
+            print('Nenhum aluno cadastrado, por favor cadastre um aluno!\n')
+            input('Tecle Enter para voltar!\n')
             os.system('cls')
         else:
             os.system('cls')
@@ -374,17 +384,18 @@ while menuOpcoes == True:
                     # Do slide 7.Strings (Autorizado pela professora Lucia)
 
             print(f'Aluno com menor média final:\n--> {alunoMenorMedia}  com média {menorMedia:.2f}')
-            input('Tecle Enter para voltar!')
+            input('Tecle Enter para voltar!\n')
             os.system('cls')
 
     if opcaoSelecionada == '6':
+        print(f'Opção "Percentual de alunos com média maior que 5.0" selecionada!\n')
         if listaAlunos == []:
             print('\nNenhum aluno cadastrado, por favor cadastre um aluno!\n')
-            input('Tecle Enter para voltar!')
+            input('Tecle Enter para voltar!\n')
             os.system('cls')
         else:
             os.system('cls')
-            print(f'Gerando percentual de alunos com média maior que 5.0..')
+            print(f'Gerando percentual de alunos com média maior que 5.0..\n')
             contPercentAlunos = 0
             for i in listaAlunos:
                 mediaFinal = i[4].split(': ')[1]
@@ -394,15 +405,15 @@ while menuOpcoes == True:
 
             percentual = (contPercentAlunos / len(listaAlunos)) * 100
             print(f'--> {percentual:.1f}%')
-            input('Tecle Enter para voltar!')
+            input('\nTecle Enter para voltar!')
             os.system('cls')
 
     if opcaoSelecionada == '7':
-        print(f'Opção "Excluir alunos cadastrado" selecionada!')  
+        print(f'Opção "Excluir alunos cadastrado" selecionada!\n')  
         while verificador == False:
             if listaAlunos == []:
                 print('\nNenhum aluno cadastrado, por favor, cadastre um aluno!\n')
-                input('Tecle Enter para voltar!')
+                input('Tecle Enter para voltar!\n')
                 os.system('cls')
                 break
             else:
@@ -417,23 +428,26 @@ while menuOpcoes == True:
                 nomeAlunoExcluir = input(f'Digite o nome do aluno que deseja excluir: ')
                 nomeAlunoExcluir = nomeAlunoExcluir.title()
                 for i in listaAlunos:
+                # criar um contador para quando tiver mais de uma pessoa com o mesmo nome se o usuário não digirar o nome completo
+                # e criar uma lista para armazenar o valor de i quando o usuário colocar o nome inteiro
+                # se ele sempre digitasse o nome todo, não precisaria
                     if i[0].find(nomeAlunoExcluir) != -1: 
                         listaAlunos.remove(i)
-                        print(f'Aluno {nomeAlunoExcluir} excluído com sucesso!')
+                        print(f'Aluno {nomeAlunoExcluir} excluído com sucesso!\n')
                         contAlunoNaoEncontrado = 0
                     else:
                         contAlunoNaoEncontrado += 1
                 if contAlunoNaoEncontrado == len(listaAlunos):
-                    print(f'Aluno não encontrado!')
+                    print(f'Aluno não encontrado!\n')
                     continue
                 else:
                     print(f'\n')
-                    input('Tecle Enter para voltar!')
+                    input('Tecle Enter para voltar!\n')
                     os.system('cls')
                     verificador = True
         verificador = False
         
     if opcaoSelecionada == '8':
         os.system('cls')
-        print(f'Encerrando o programa!')
+        print(f'Encerrando o programa!\n')
         menuOpcoes = False
