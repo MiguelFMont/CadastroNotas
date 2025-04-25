@@ -426,25 +426,36 @@ while menuOpcoes == True:
             
                 contAlunoNaoEncontrado = 0
                 nomeAlunoExcluir = input(f'Digite o nome do aluno que deseja excluir: ')
+                
                 nomeAlunoExcluir = nomeAlunoExcluir.title()
+                contNomes = 0
+                listaNome = []
                 for i in listaAlunos:
                 # criar um contador para quando tiver mais de uma pessoa com o mesmo nome se o usuário não digirar o nome completo
                 # e criar uma lista para armazenar o valor de i quando o usuário colocar o nome inteiro
                 # se ele sempre digitasse o nome todo, não precisaria
-                    if i[0].find(nomeAlunoExcluir) != -1: 
-                        listaAlunos.remove(i)
-                        print(f'Aluno {nomeAlunoExcluir} excluído com sucesso!\n')
-                        contAlunoNaoEncontrado = 0
+                    if i[0].find(nomeAlunoExcluir) != -1:    
+                        contNomes += 1
+                        listaNome.append(i)
                     else:
                         contAlunoNaoEncontrado += 1
                 if contAlunoNaoEncontrado == len(listaAlunos):
                     print(f'Aluno não encontrado!\n')
                     continue
                 else:
-                    print(f'\n')
-                    input('Tecle Enter para voltar!\n')
-                    os.system('cls')
-                    verificador = True
+                    if contNomes > 1:
+                        os.system('cls')
+                        print(f'Existem {contNomes} alunos com o nome {nomeAlunoExcluir}, por favor, digite o nome completo!\n')
+                        input('Tecle Enter para voltar!\n')
+                        os.system('cls')
+                        continue
+                    elif contNomes == 1:
+                        os.system('cls')
+                        listaAlunos.remove(listaNome[0])
+                        print(f'Aluno {nomeAlunoExcluir} excluído com sucesso!\n')
+                        input('Tecle Enter para voltar!\n')
+                        os.system('cls')
+                        verificador = True
         verificador = False
         
     if opcaoSelecionada == '8':
