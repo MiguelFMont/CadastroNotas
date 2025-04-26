@@ -27,7 +27,18 @@ for i in listaAlunos:
 print(listaNome)
 '''
 
-num = (input('Digite um número: '))
+listaAlfabeto2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ']
 
-if num not in '0123456789.':
-    print('O número não pode conter letras ou caracteres especiais!')
+while True:
+    nome = input('Digite seu nome: ')
+    contInvalido = 0
+    for l in nome:
+            if listaAlfabeto2.count(l) == 0:
+                contInvalido += 1
+
+    if contInvalido > 0:
+        print(f'O nome não pode conter números ou caracteres especiais, por favor, digite novamente!\n')
+        continue
+    else:
+        print(f'Nome válido: {nome}')
+        break

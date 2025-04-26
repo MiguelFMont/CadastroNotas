@@ -1,7 +1,10 @@
 import os
+import time
 
 listaAlunos = []
 listaNumeroVerificacao = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',', '.']
+listaQtdCadastroVerificacao = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+listaNomeVerificacao = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' '] 
 menuOpcoes = True
 while menuOpcoes == True: 
     print(f'''Opções:
@@ -13,6 +16,8 @@ while menuOpcoes == True:
     6. Percentual de alunos com média final maior que 5.0
     7. Excluir aluno cadastrado
     8. Sair
+          
+          >>> Use "-" para voltar ao menu principal <<<
     ''')
     opcaoSelecionada = input(f'--> ')
     os.system('cls')
@@ -22,8 +27,15 @@ while menuOpcoes == True:
         print(f'Opção "Cadastrar alunos e notas" selecionada!\n')
         verificador = False 
         while verificador == False:
+
+            contNumInvalido = 0
+
             qtdCadastro = (input(f'Digite a quantidade de alunos que deseja cadastrar: '))
-            
+            if qtdCadastro == '-':
+                os.system('cls')
+                print(f'Voltando ao menu principal!\n')
+                time.sleep(1)
+                break
             if qtdCadastro == '':
                 os.system('cls')
                 print(f'Quantidade inválida, por favor, digite novamente!\n')
@@ -31,23 +43,27 @@ while menuOpcoes == True:
             else:
                 # fazer a mesma verificação de números que foi feita com as notas
                 for i in qtdCadastro:
-                    if i not in listaNumeroVerificacao:
-                        os.system('cls')
-                        print(f'Quantidade inválida, por favor, digite novamente!\n')
+                    if listaQtdCadastroVerificacao.count(i) == 0:
+                        contNumInvalido += 1
+                if contNumInvalido > 0:
+                    os.system('cls')
+                    print(f'Quantidade inválida, por favor, digite novamente!\n')
+                    continue
 
-
-                for i in qtdCadastro:
-                    if qtdCadastro.count(',') >= 1:
-                        os.system('cls')
-                        print(f'Quantidade inválida, por favor, digite novamente!\n')
-                        continue
-                    else:
-                        qtdCadastro = int(qtdCadastro)
-                        verificador = True
+                if qtdCadastro.count(',') >= 1 or qtdCadastro.count('.') >= 1:
+                    os.system('cls')
+                    print(f'Quantidade inválida, por favor, digite novamente!\n')
+                    continue
+                else:
+                    qtdCadastro = int(qtdCadastro)
+                    verificador = True
         os.system('cls')
-        verificador = False
 
+        if qtdCadastro == '-':
+                continue
+        verificador = False
         contCadastro = 0
+        
         while contCadastro < qtdCadastro:
 
             listaAluno = []
@@ -64,6 +80,21 @@ while menuOpcoes == True:
                 contEspacosVazios = 0
                 contAlunoNaoEncontrado = 0
                 contNum = 0
+                contInvalido = 0
+
+                if nomeAluno == '-':
+                    os.system('cls')
+                    
+                    break
+
+                for l in nomeAluno.lower():
+                    if listaNomeVerificacao.count(l) == 0:
+                        contInvalido += 1
+
+                if contInvalido > 0:
+                    os.system('cls')
+                    print(f'O nome não pode conter números ou caracteres especiais, por favor, digite novamente!\n')
+                    continue
 
                 if len(nomeAluno) < 15:
                     os.system('cls')
@@ -86,14 +117,6 @@ while menuOpcoes == True:
                         contEspacosVazios = 0
                         continue
                 
-                for n in listaNumeroVerificacao:
-                    if nomeAluno.count(n) > 0:
-                        contNum += 1
-                if contNum > 0:
-                    os.system('cls')
-                    print(f'O nome não pode conter números, por favor, digite novamente!\n')
-                    contNum = 0
-                    continue
 
                 for i in listaAlunos:
                     if i[0].find(nomeAluno) != -1: 
@@ -105,13 +128,21 @@ while menuOpcoes == True:
                 if contAlunoNaoEncontrado == len(listaAlunos):    
                     verificador = True
 
+
             os.system('cls')
+            if nomeAluno == '-':  
+                break
             print(f'Iniciando o cadastro do aluno {nomeAluno.title()}...\n')
             print('Preencha os campos abaixo com as notas!\n')
             verificador = False
 
             while verificador == False:
                 notaTeorica1 = (input(f'prímeira prova teórica: '))
+
+                if notaTeorica1 == '-':
+                    os.system('cls')
+                    
+                    break
 
                 if notaTeorica1 == '':
                     os.system('cls')
@@ -145,10 +176,17 @@ while menuOpcoes == True:
                             verificador = True
                     
             os.system('cls')
-
+            if notaTeorica1 == '-':
+                break
             verificador = False
+
             while verificador == False:
                 notaTeorica2 = (input(f'segunda prova teórica: '))
+
+                if notaTeorica2 == '-':
+                    os.system('cls')
+                    
+                    break
 
                 if notaTeorica2 == '':
                     os.system('cls')
@@ -182,9 +220,16 @@ while menuOpcoes == True:
                             verificador = True
 
             os.system('cls')
+            if notaTeorica2 == '-':
+                break
             verificador = False
             while verificador == False:
                 notaPratica1 = (input(f'primeira prova prática: '))
+
+                if notaPratica1 == '-':
+                    os.system('cls')
+                    
+                    break
 
                 if notaPratica1 == '':
                     os.system('cls')
@@ -218,9 +263,16 @@ while menuOpcoes == True:
                             verificador = True
 
             os.system('cls')
+            if notaPratica1 == '-':
+                break
             verificador = False
             while verificador == False:
                 notaPratica2 = (input(f'segunda prova prática: '))
+
+                if notaPratica2 == '-':
+                    os.system('cls')
+                    
+                    break
 
                 if notaPratica2 == '':
                     os.system('cls')
@@ -253,6 +305,8 @@ while menuOpcoes == True:
                         else:
                             verificador = True
             os.system('cls')
+            if notaPratica2 == '-':
+                break
             verificador = False
 
             mediaTeorica = (0.4 * notaTeorica1) + (0.6 * notaTeorica2)
@@ -319,7 +373,7 @@ while menuOpcoes == True:
                 os.system('cls')
                 break
             else:
-                pesquisaAluno = input(f'Digite o nome do aluno: \n')
+                pesquisaAluno = input(f'Digite o nome do aluno: ')
                 pesquisaAluno = pesquisaAluno.title()
                 print(f'Gerando Boletim por aluno..\n\n')
                 contAlunoNaoEncontrado = 0
@@ -428,10 +482,16 @@ while menuOpcoes == True:
                     for k in i:
                         for j in k:
                             print(f'{j}', end='')
+                            
                 print(f'\n')
             
                 contAlunoNaoEncontrado = 0
                 nomeAlunoExcluir = input(f'Digite o nome do aluno que deseja excluir: ')
+
+                if nomeAlunoExcluir == '-':
+                    os.system('cls')
+                    
+                    break
                 
                 nomeAlunoExcluir = nomeAlunoExcluir.title()
                 contNomes = 0
@@ -463,6 +523,10 @@ while menuOpcoes == True:
                         os.system('cls')
                         verificador = True
         verificador = False
+
+    if opcaoSelecionada == '-':
+        os.system('cls')
+        continue
         
     if opcaoSelecionada == '8':
         os.system('cls')
